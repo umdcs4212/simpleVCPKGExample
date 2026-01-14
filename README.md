@@ -11,7 +11,7 @@ To build this, you do need some development tools for C++. The following section
 The following command in Ubuntu (or related) Linux will get you most of what you might
 
 ```
-sudo apt-get install build-essential cmake git g++ libxi-dev libxmu-dev libxrandr-dev libxinerama-dev libxcursor-dev
+sudo apt-get install build-essential cmake git g++ libxi-dev libxmu-dev libxrandr-dev libxinerama-dev libxcursor-dev libglu-dev
 ```
 
 ### macOS
