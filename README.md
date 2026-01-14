@@ -9,7 +9,10 @@ To build this, you do need some development tools for C++. The following section
 ### Linux
 
 The following command in Ubuntu (or related) Linux will get you most of what you might
+
+```
 sudo apt-get install build-essential cmake git g++ libxi-dev libxmu-dev libxrandr-dev libxinerama-dev libxcursor-dev
+```
 
 ### macOS
 
@@ -17,11 +20,15 @@ On macOS, you'll will need to get Apple's Xcode development environment and IDE 
 
 After this, you will want to install Brew:
 
+```
 https://brew.sh/
+```
 
 Brew is a package installer for mac os that works well.  You can install pretty much any package with Brew that are available on Linux machines.
 
+```
 brew install cmake
+```
 
 will get you initially started.
 
@@ -46,9 +53,13 @@ We support a more generalized build system using vcpkg [https://learn.microsoft.
 
 ## Setting up vcpkg
 
-To setup vcpkg, you will need to clone the vcpkg repository and setup environment variables that CMake can use to locate your vcpkg install.  More information on vcpkg and specific details for setting it up on different systems (Windows vs. Linux-based systems) can be found here: [https://learn.microsoft.com/en-us/vcpkg/get_started/overview](https://learn.microsoft.com/en-us/vcpkg/get_started/overview). The instructions below will reflect a Windows-based, Powershell setup to facilitate building QES on Windows, but the ideas are very similar for Linux and macos:
+To setup vcpkg, you will need to clone the vcpkg repository and setup environment variables that CMake can use to locate your vcpkg install.  More information on vcpkg and specific details for setting it up on different systems (Windows vs. Linux-based systems) can be found here: [https://learn.microsoft.com/en-us/vcpkg/get_started/overview](https://learn.microsoft.com/en-us/vcpkg/get_started/overview). 
 
 Determine a location where you want vcpkg installed. It can be in system location for all users or cloned into your own user account. After cloning, be sure to run the bootstrap batch file in the vcpkg folder.
+
+### TLDR; On Windows
+
+Using git-bash, change directories to where you store your development files. Then, clone vcpkg, as shown below:
 
 ```
 git clone https://github.com/microsoft/vcpkg.git
@@ -63,24 +74,38 @@ VCPKG_ROOT = "C:\path\to\vcpkg"
 PATH = "$env:VCPKG_ROOT;$env:PATH"
 ```
 
-#### Building QES Using CMake Presets
+### TLDR; On Linux and macOS
 
-We have several CMake Build Presets that are outlined in the CMakePresets.json file in QES. Some are for building on Linux, macos, or without CUDA. The main build preset for Windows is the __windowsDev__ preset. For building on macOS, you can use __macOSDev__.  To setup the build environment using a preset, you first need to be in the main QES source folder and issue the cmake command:
+Using a terminal, change directories to where you store your development files. Then, clone vcpkg, as shown below:
 
 ```
-cd <path/to/local QES repo>
-cmake --preset=windowsDev
+git clone https://github.com/microsoft/vcpkg.git
+cd vcpkg
+./bootstrap-vcpkg.sh
 ```
 
-Each preset defines its own build directory and various build variables that are important on that system. You may need to tweak some of these variables for your own system setup to locate the NVIDIA CUDA and OptiX install paths. Most other settings can be left alone, typically.
+Next, you will need to create the VCPKG_ROOT environment variable to point to the location of the vcpkg local repository on your system. You should also add the vcpkg root to your PATH variable. On Linux, you will need to determine which shell environment you use.  For bash, you would edit the ~/.bashrc file, and modify the PATH variable a bit, as shown below:
 
-__Windows-Specfic Instructions__
+```
+export VCPKG_ROOT=/home/willemsn/dev/vcpkg
+export PATH="$PATH":"$VCPKG_ROOT"
+```
 
-On Windows, you will need a C++ compiler. We have tested all Windows builds using the Community Edition of Microsoft's Visual Studio development environment [https://visualstudio.microsoft.com/vs/community/](https://visualstudio.microsoft.com/vs/community/). This is different than the Visual Studio Code editor -- make sure you get the full Visual Studio Community IDE, which includes the MSVC C++ compiler. Specifically, our current build environment for Windows is the following:
+The instructions are similar for macOS. Determine which shell you use (typically zsh), and then add similar lines to the ~/.zprofile file.
 
-- Windows 11 (Version 24H2, OS build 26100.3194)
-- Microsoft Visual Studio Community 2022 (64-bit), Version 17.0.4
+Then, when you restart your terminals, you should be able to run the vcpkg program:
+```
+vcpkg
+```
 
-Microsoft's Visual Studio Community Edition (and related) IDEs understand CMake and can configure a CMake project using the presets. Simply open the Local Folder containing your copy of QES into the IDE. Then, from the "Configuration" drop-down, select windowsDev.  You can trigger a full Reconfigure of the project from the "Project" menu's "Delete Cache and Reconfigure".  Once CMake is configured, you can build the project through the Build > Build All menu items.
+#### Building Using CMake Presets
 
-You will then need to access the built executables in the buildWindowsDev build folder using either Powershell or other command line shells on Windows.
+We have several CMake Build Presets that are outlined in the CMakePresets.json. Some are for building for Release or Debug mode. Running the default setup is just fine too.
+
+```
+cd <path/to/this source>
+cmake --preset=default
+```
+
+Each preset defines its own build directory and various build variables that are important on that system. 
+
