@@ -71,8 +71,8 @@ Next, you will need to create the VCPKG_ROOT environment variable to point to th
 
 ```
 VCPKG_ROOT = "C:\path\to\vcpkg"
-PATH = "$env:VCPKG_ROOT;$env:PATH"
 ```
+Then, make sure the VCPKG_ROOT is also in your user Path variable.
 
 ### TLDR; On Linux and macOS
 
