@@ -26,12 +26,10 @@ https://brew.sh/
 ```
 
 Brew is a package installer for mac os that works well.  You can install pretty much any package with Brew that are available on Linux machines.
-
 ```
-brew install cmake
+brew install cmake pkg-config
 ```
-
-will get you initially started.
+will get you initially started with the cmake tools and a needed package configuration tool.
 
 
 ### Windows
