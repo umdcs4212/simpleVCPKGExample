@@ -1,17 +1,18 @@
 # Basic Info
 
-This project uses CMake and vcpkg for managing C++ dependencies.
+This project uses CMake and vcpkg for managing C++ dependencies. It serves as a simple example to test your build setup before we get into more complicted code.
+
 
 ## Development Environment Setup
 
-To build this, you do need some development tools for C++. The following sections will help with each of your specific environments.  Minimally, you need a terminal, a good C++ editor, a git command line client, and of course a C++ compiler toolchain.
+Before you get too deep into this, you will need some tools, depending on your operating system and hardware. To build this, you do need some development tools for C++. The following sections will help with each of your specific environments.  Minimally, you need a terminal, a good C++ editor, a git command line client, and of course a C++ compiler toolchain.
 
 ### Linux
 
 The following command in Ubuntu (or related) Linux will get you most of what you might
 
 ```
-sudo apt-get install build-essential cmake git g++ libxi-dev libxmu-dev libxrandr-dev libxinerama-dev libxcursor-dev libglu-dev
+sudo apt-get install build-essential cmake git g++
 ```
 
 ### macOS
@@ -37,17 +38,21 @@ will get you initially started.
 
 Building on Windows requires installing a few packages:
 
-Visual Studio Community Edition 2022 (or newer)
-CMake https://cmake.org/download/
-Git Bash https://git-scm.com/downloads
+* Visual Studio Community Edition 2022 (or newer - such as 2026) - this includes Microsoft's C++ compiler
+* CMake https://cmake.org/download/
+* Git Bash https://git-scm.com/downloads - You can use the powershell, but this is a nice Unix terminal for Windows and it comes with git
+* VS Code https://code.visualstudio.com - VSCode is a nice editor for C++
 
-VS Code
-
-When you install VS, feel free to add whatever development languages and frameworks you want, but certainly add C++ and the graphics libraries (DirectX, etc...). Once the development environments are installed, make sure to setup your git SSH keys if you want.
-
+When you install Microsoft Visual Studio Community Edition, feel free
+to add whatever development languages and frameworks you want, but
+certainly add C++ and the graphics libraries (DirectX, etc...). Once
+the development environments are installed, make sure to setup your
+git SSH keys if you want.
 
 
 # vcpkg - Generalized Build Instructions for Windows, macos and Linux
+
+Once you have some of the items above, it's time to make sure you've got vcpkg ready on your development machine.
 
 We support a more generalized build system using vcpkg [https://learn.microsoft.com/en-us/vcpkg/get_started/overview](https://learn.microsoft.com/en-us/vcpkg/get_started/overview) and CMake build presets. Vcpkg is a C++ package manager used to pull the dependencies needed to build this code. When used in this way, the cmake build system will pull the needed requirements and not rely on installed system dependencies (meaning you shouldn't have to install all sorts of things, ideally). This can result in the initial build being a little slower as the required dependencies are pulled and compiled, but it does mean that you do not have to manually install our dependencies.
 
@@ -67,12 +72,15 @@ cd vcpkg
 bootstrap-vcpkg.bat
 ```
 
-Next, you will need to create the VCPKG_ROOT environment variable to point to the location of the vcpkg local repository on your system. You should also add the vcpkg root to your PATH variable. The following focuses on Windows, but the same ideas are needed on Unix systems and your shell's environment variables. On Windows, the ideal way to do this so that it is permanent is to set the variables using the Windows System Environment Variables panel from Settings. You will need something like the following:
+Next, you will need to create the VCPKG_ROOT environment variable to point to the location of the vcpkg local repository on your system. You should also add the vcpkg root to your PATH variable. The following focuses on Windows, but the same ideas are needed on Unix systems and your shell's environment variables. On Windows, the ideal way to do this so that it is permanent is to set the variables using the Windows System Environment Variables panel from Settings. You can get to this by searching for Environment in the Windows menu. You will need something like the following:
 
 ```
 VCPKG_ROOT = "C:\path\to\vcpkg"
 ```
-Then, make sure the VCPKG_ROOT is also in your user Path variable.
+Then, make sure the VCPKG_ROOT is also in your user Path variable.  You should be able to just add another folder path to the VCPKG_ROOT location.
+
+You will need to quit your Powershell (or git-bash) after this and bring up a new window so the PATH variable information gets propoated.
+
 
 ### TLDR; On Linux and macOS
 
@@ -107,5 +115,14 @@ cd <path/to/this source>
 cmake --preset=default
 ```
 
-Each preset defines its own build directory and various build variables that are important on that system. 
+Each preset defines its own build directory and various build variables that are important on that system.
+
+Then, to build this source, you would
+
+```
+cd buildVCPkg
+cmake --build .
+```
+
+Your executables will then be in the build folder. They may be in sub-folders depending on the environment.
 
