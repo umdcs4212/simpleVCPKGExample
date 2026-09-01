@@ -36,7 +36,7 @@ will get you initially started with the cmake tools and a needed package configu
 
 Building on Windows requires installing a few packages:
 
-* Visual Studio Community Edition 2022 (or newer - such as 2026) - this includes Microsoft's C++ compiler
+* Visual Studio Community Edition 2026 (this includes Microsoft's C++ compiler)
 * CMake https://cmake.org/download/
 * Git Bash https://git-scm.com/downloads - You can use the powershell, but this is a nice Unix terminal for Windows and it comes with git
 * VS Code https://code.visualstudio.com - VSCode is a nice editor for C++
