@@ -25,6 +25,15 @@
 		"CMAKE_BUILD_TYPE": "Release",
 		"CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
 	    }
+	},
+	{
+	    "name": "msvc",
+	    "inherits": "default",
+	    "binaryDir": "${sourceDir}/buildVCPkg_MSVC",
+	    "environment": {
+		"__comment__": "Set VCPKG_ROOT to your local vcpkg installation path",
+		"VCPKG_ROOT": "C:/Users/willemsn/dev/vcpkg"
+	    }
 	}
     ]
 }
